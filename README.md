@@ -1,10 +1,10 @@
 # xspecies-hctsa-stage2-public
 
-This repository contains release-oriented documentation, HCTSA execution scripts, compatibility patch copies, and lightweight metadata files for the Stage2 human/macaque ECoG cross-species HCTSA analysis.
+This repository contains release-oriented documentation, HCTSA execution scripts, compatibility patch copies, and a lightweight code manifest for the Stage2 human/macaque ECoG cross-species HCTSA analysis.
 
 ## Overview
 
-The repository is organized to document and reproduce the Stage2 HCTSA execution layer. It includes the main 200 ms HCTSA execution scripts, the epoch 6 s HCTSA execution scripts, selected epoch 6 s classification scripts, and lightweight metadata summaries.
+The repository is organized to document and reproduce the Stage2 HCTSA execution layer. It includes the main 200 ms HCTSA execution scripts, the epoch 6 s HCTSA execution scripts, and selected epoch 6 s classification scripts.
 
 Large generated outputs are intentionally not included.
 
@@ -13,7 +13,7 @@ Large generated outputs are intentionally not included.
 - Main 200 ms Stage2 HCTSA pipeline: [docs/stage2_hctsa_pipeline.md](docs/stage2_hctsa_pipeline.md)
 - Epoch 6 s HCTSA and classification pipeline: [docs/epoch6s_pipeline.md](docs/epoch6s_pipeline.md)
 - Compatibility fixes: [docs/compatibility_fixes.md](docs/compatibility_fixes.md)
-- Metadata and summary files: [docs/provenance_files.md](docs/provenance_files.md)
+- Released code manifest: [docs/provenance_files.md](docs/provenance_files.md)
 - Code scope and exclusions: [docs/code_scope.md](docs/code_scope.md)
 
 ## Repository contents
@@ -36,7 +36,7 @@ Large generated outputs are intentionally not included.
 
 ## Relationship to the Stage1 canonical codebase
 
-This repository does not duplicate the main Stage1 nearest-median classifier core. The 200 ms nearest-median classifier core is maintained in the Stage1 canonical codebase. This repository focuses on Stage2 execution wrappers, patch copies, lightweight metadata summaries, and Stage2-specific documentation.
+This repository does not duplicate the main Stage1 nearest-median classifier core. The 200 ms nearest-median classifier core is maintained in the Stage1 canonical codebase. This repository focuses on Stage2 execution wrappers, patch copies, and Stage2-specific documentation.
 
 See [docs/code_scope.md](docs/code_scope.md) for details.
 

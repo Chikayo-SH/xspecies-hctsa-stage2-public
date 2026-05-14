@@ -2,7 +2,7 @@
 
 ## Scope
 
-This document summarizes the main Stage2 200 ms HCTSA execution pipeline and lightweight metadata summaries included in this repository.
+This document summarizes the main Stage2 200 ms HCTSA execution pipeline included in this repository.
 
 ## Final Stage2 200 ms pipeline
 
@@ -10,23 +10,6 @@ Final status TSV:
 
 ```text
 <LOCAL_STAGE2_REPO>/ops/job_audit/2026-02-03/run/postprocess_merged_status.updated_after_market_missing_82.tsv
-```
-
-Final HCTSA `.mat` output summary:
-
-```text
-ops/hctsa/provenance/stage2_final_hctsa_paths_summary.tsv
-```
-
-Notes:
-
-- summarizes 1524 final HCTSA `.mat` outputs by species, subject, and run tag
-- raw absolute path lists are retained only in the private/internal repository
-
-Run tag count table:
-
-```text
-ops/hctsa/provenance/stage2_final_runtag_counts.tsv
 ```
 
 ## HCTSA / MATLAB environment
@@ -109,6 +92,6 @@ ops/hctsa/patches/NL_TISEAN_fnn.m
 ## Reproducibility checklist
 
 - Confirm the final status TSV.
-- Confirm that `stage2_final_hctsa_paths_summary.tsv` summarizes the 1524 final HCTSA `.mat` outputs.
+- Final output path lists and run-tag counts are retained in the private/internal repository.
 - Confirm MATLAB and HCTSA versions before rerunning.
 - Confirm xspecies classifier code commit before interpreting classification outputs.

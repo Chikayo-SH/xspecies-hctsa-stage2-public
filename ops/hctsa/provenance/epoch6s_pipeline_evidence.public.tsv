@@ -1,3 +1,0 @@
-pipeline	species	rep_log	job_id	runTag	subject	ch	HCTSA_A	matlab_version	after_force_signal	has_TS_Compute_start	has_TS_Compute_end	has_postprocess	has_valid_feature_count	has_done_driver
-epoch6s	human	<PROJECT_ROOT>/logs/epoch6s_hum_hctsa_54608906_1.out	54608906	epoch6s_human_54608906	372_2020_anesthesia_l	1	<HCTSA_REPO>	9.14.0.2337262 (R2023a) Update 5 release=2023a	1	1	1	1	1	1
-epoch6s	macaque	<PROJECT_ROOT>/logs/epoch6s_mac_hctsa_54572633_1.out	54572633	epoch6s_macaque_54572634	Chibi_20120730_l	1	<HCTSA_REPO>	9.14.0.2337262 (R2023a) Update 5 release=2023a	1	1	1	1	1	1

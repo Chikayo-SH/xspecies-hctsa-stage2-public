@@ -89,12 +89,9 @@ ops/hctsa/epoch6s_classification/compareValidation_epoch6s_3lobe.m
 
 `compareValidation_epoch6s_3lobe.m` reads per-pair results, saves `compareValidation.mat`, and generates Panel-B-style summary figures.
 
-## 6 s provenance files
+## 6 s metadata notes
 
-```text
-ops/hctsa/provenance/epoch6s_pipeline_evidence.tsv
-ops/hctsa/provenance/epoch6s_3lobe_outputs_filelist.tsv
-```
+Detailed local job/log evidence and generated output file listings are retained in the private/internal repository. They are not included in this public release.
 
 ## Output directory
 
@@ -109,8 +106,4 @@ This directory contained 47 files, including:
 - `nSig_accuracy_epoch6s_3lobe.tsv`
 - summary figure files
 
-Large outputs are not included in GitHub. Only the file listing is included:
-
-```text
-ops/hctsa/provenance/epoch6s_3lobe_outputs_filelist.tsv
-```
+Large outputs are not included in this public release.

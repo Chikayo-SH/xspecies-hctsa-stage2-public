@@ -1,0 +1,15 @@
+pipeline	category	used_in_run	source_path	intended_repo_path	in_head	action	note
+200ms	helper	yes	<PROJECT_ROOT>/04_pipelines/xspecies_wrapper/bootstrap_stage1_ab.m	ops/hctsa/wrappers/bootstrap_stage1_ab.m	no	add	bootstrap/path setup used before HCTSA init/compute
+200ms	helper	yes	<PROJECT_ROOT>/04_pipelines/xspecies_wrapper/add_toolbox.m	ops/hctsa/wrappers/add_toolbox.m	no	add	toolbox path helper used by wrappers
+200ms	helper	yes	<PROJECT_ROOT>/04_pipelines/xspecies_wrapper/force_findpeaks_matlab.m	ops/hctsa/wrappers/force_findpeaks_matlab.m	no	add	forces MATLAB Signal Toolbox findpeaks before TS_Compute
+200ms	postprocess	yes	<PROJECT_ROOT>/04_pipelines/xspecies_wrapper/main_hctsa_3_postProcess_patched.m	ops/hctsa/postprocess/main_hctsa_3_postProcess_patched.m	no	add	postprocess/valid_features generation
+200ms	hctsa_patch	yes	<HCTSA_REPO>/Operations/MF_steps_ahead.m	ops/hctsa/patches/MF_steps_ahead.m	no	add	R2023a/System Identification Toolbox compatibility
+200ms	hctsa_patch	yes	<HCTSA_REPO>/Operations/NL_TISEAN_fnn.m	ops/hctsa/patches/NL_TISEAN_fnn.m	no	add	short/unstable embedding guard
+6s_human	sbatch	yes	<LOCAL_STAGE2_REPO>/ops/hctsa_epoch6s_human_20260407/sbatch_hctsa_epoch6s_human_array_v1.sbatch	ops/hctsa/epoch6s_execution/human/sbatch_hctsa_epoch6s_human_array_v1.sbatch	no	add	human 6 s Slurm entrypoint
+6s_human	driver	yes	<LOCAL_STAGE2_REPO>/ops/hctsa_epoch6s_human_20260407/driver_stage2_human_onech_epoch6s_v1.m	ops/hctsa/epoch6s_execution/human/driver_stage2_human_onech_epoch6s_v1.m	no	add	human 6 s driver
+6s_human	init	yes	<LOCAL_STAGE2_REPO>/ops/hctsa_epoch6s_human_20260407/main_hctsa_1_init_epoch6s_patched_humanlabel.m	ops/hctsa/epoch6s_execution/human/main_hctsa_1_init_epoch6s_patched_humanlabel.m	no	add	human 6 s HCTSA init
+6s_human	compute	yes	<LOCAL_STAGE2_REPO>/ops/hctsa_epoch6s_human_20260407/main_hctsa_2_compute_epoch6s_patched_nopool.m	ops/hctsa/epoch6s_execution/human/main_hctsa_2_compute_epoch6s_patched_nopool.m	no	add	human 6 s HCTSA compute
+6s_macaque	sbatch	yes	<LOCAL_STAGE2_REPO>/ops/hctsa_epoch6s_macaque_20260406_2238/sbatch_hctsa_epoch6s_macaque_array.sbatch	ops/hctsa/epoch6s_execution/macaque/sbatch_hctsa_epoch6s_macaque_array.sbatch	no	add	macaque 6 s Slurm entrypoint
+6s_macaque	driver	yes	<LOCAL_STAGE2_REPO>/ops/hctsa_epoch6s_macaque_20260406_2238/driver_stage2_macaque_onech_epoch6s.m	ops/hctsa/epoch6s_execution/macaque/driver_stage2_macaque_onech_epoch6s.m	no	add	macaque 6 s driver
+6s_macaque	init	yes	<LOCAL_STAGE2_REPO>/ops/hctsa_epoch6s_macaque_20260406_2238/main_hctsa_1_init_epoch6s_patched.m	ops/hctsa/epoch6s_execution/macaque/main_hctsa_1_init_epoch6s_patched.m	no	add	macaque 6 s HCTSA init
+6s_macaque	compute	yes	<LOCAL_STAGE2_REPO>/ops/hctsa_epoch6s_macaque_20260406_2238/main_hctsa_2_compute_epoch6s_patched_nopool.m	ops/hctsa/epoch6s_execution/macaque/main_hctsa_2_compute_epoch6s_patched_nopool.m	no	add	macaque 6 s HCTSA compute

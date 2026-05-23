@@ -57,7 +57,7 @@ load_dir = char(load_dir);
 save_dir = char(save_dir);
 
 
-%data_server = '/mnt/dshi0006_market/Massive/COSproject';
+%data_server = '<INTERNAL_DATA_SHARE>/COSproject';
 %hctsa_dir = fullfile(data_server,'hctsa_space_subtractMean_removeLineNoise/');
 %hctsa_mat = 'HCTSA_validate1_ch65.mat';
 

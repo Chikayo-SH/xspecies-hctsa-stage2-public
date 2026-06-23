@@ -1,0 +1,307 @@
+# xSpecies Stage A/B/Angus plotting pipeline
+
+## Purpose
+
+This pipeline calculates all-channel hctsa t-values for human anesthesia subjects, generates Stage-1-order white-zone heatmaps, and applies Angus's clustering/MNI plotting functions.
+
+The main contrasts are:
+
+* `t_AS = awake minus sedated`
+* `t_SU = sedated minus unconscious/unresponsive`
+
+## Source rule
+
+Use the HCTSA source rule based on Daisuke's code.
+
+### Special relabelled 2020 subjects
+
+Use:
+
+```text
+relabelled_hctsa_epoch200ms_20260412/<subject>
+```
+
+for:
+
+```text
+372_2020_anesthesia
+403_2020_anesthesia
+409_2020_anesthesia
+423_2020_anesthesia
+```
+
+### Other human subjects
+
+Use:
+
+```text
+postprocess_HCTSA/human/<subject>
+```
+
+for other human subjects, including the 2018 sessions.
+
+### 376_2020_anesthesia
+
+`376_2020_anesthesia` is a special case because an orderfix directory also exists:
+
+```text
+relabelled_hctsa_epoch200ms_20260414_376_2020_orderfix/376_2020_anesthesia
+```
+
+Do not treat 376 as final until Daisuke confirms whether to use the postprocess directory or the orderfix directory.
+
+## Pipeline stages
+
+### Stage 0: Source inventory and staging
+
+Goal: identify and stage HCTSA source directories on scratch.
+
+Outputs:
+
+* subject inventory TSV
+* source manifest TSV
+* staged HCTSA source directories on scratch
+
+Recommended manifest fields:
+
+```text
+species
+subject
+hctsa_dir
+source_rule_status
+label_status
+label_issue_type
+apply_reorder_rule
+notes
+```
+
+Use `apply_reorder_rule=none` unless an explicit reviewed rule is implemented.
+
+### Stage A: HCTSA to t-score MAT
+
+Main script:
+
+```text
+/fs04/scratch2/qb48/chikayoh/xspecies_stage1order_white3_pipeline_20260621/tscore_from_hctsa_v4.m
+```
+
+Required environment variables:
+
+```text
+HCTSA_DIR
+SESSION_NAME
+OUT_DIR
+OUTPUT_PREFIX
+LABEL_STATUS
+LABEL_ISSUE_TYPE
+SOURCE_RULE_NOTE
+APPLY_REORDER_RULE
+NORM_VAR_PREFERENCE
+MAX_CHANNELS
+MIN_VALID_N
+MIN_DENOM
+VAR_EPS
+TREAT_NONFINITE_AS_NAN
+```
+
+Core settings used in 403 regression:
+
+```text
+LABEL_STATUS=verified
+LABEL_ISSUE_TYPE=corrected_relabelled_source
+APPLY_REORDER_RULE=none
+NORM_VAR_PREFERENCE=TS_Normalised,TS_Normalized
+MAX_CHANNELS=0
+MIN_VALID_N=100
+MIN_DENOM=1e-3
+VAR_EPS=1e-8
+TREAT_NONFINITE_AS_NAN=yes
+```
+
+Stage A outputs:
+
+```text
+<OUTPUT_PREFIX>.mat
+<OUTPUT_PREFIX>_summary.csv
+<OUTPUT_PREFIX>_condition_audit.csv
+<OUTPUT_PREFIX>_README_tscore_source.txt
+```
+
+The MAT file contains:
+
+```text
+t_AS_mat
+t_SU_mat
+mu_A_mat
+mu_S_mat
+mu_U_mat
+var_A_mat
+var_S_mat
+var_U_mat
+n_A_mat
+n_S_mat
+n_U_mat
+channel_ids
+feature_names
+file_names
+```
+
+### Stage A QC
+
+For each subject, check:
+
+```text
+n_awake
+n_sedated
+n_uncon
+n_overlap_condition
+condition_parse_mode
+finite_AS
+finite_SU
+channel_ids
+feature_names
+```
+
+For 403, the regression target is:
+
+```text
+/fs04/scratch2/qb48/for_angus_403_2020_anesthesia_tvalues_20260620/tscore_norm_403_2020_anesthesia_all_tvalues.mat
+```
+
+403 validation result:
+
+* `t_AS_mat` matched the existing reference exactly.
+* `t_SU_mat` matched the existing reference exactly.
+* `channel_ids` matched exactly.
+* `mu_*`, `var_*`, and `n_*` matrices matched exactly.
+* Therefore, the Stage A v4 calculation logic is validated for 403.
+
+### Stage B: Stage-1-order white-zone postprocess
+
+Main script:
+
+```text
+/fs04/scratch2/qb48/chikayoh/xspecies_stage1order_white3_pipeline_20260621/stage1order_white3_postprocess_v2.m
+```
+
+Existing array script:
+
+```text
+/fs04/scratch2/qb48/chikayoh/xspecies_stage1order_white3_pipeline_20260621/run_stage1order_white3_array.slurm
+```
+
+Main inputs:
+
+```text
+Stage A t-score MAT
+Stage 1 reference MAT
+```
+
+Stage 1 reference:
+
+```text
+/fs04/scratch2/qb48/chikayoh/stage1_reference_20260621/TS_Normalised_train_macaque_George_ch055_validate_human_376_ch134_accuracy.mat
+```
+
+Key visualization parameter:
+
+```text
+white_abs_t=3
+```
+
+Stage B purpose:
+
+* restrict/reorder features by the Stage 1 feature set/order
+* plot AS and SU heatmaps
+* show `|t| <= 3` as white as a visualization criterion
+* keep visualization white-zone separate from validity masking
+
+### Stage C: Angus clustering/MNI plotting
+
+Angus plotting functions copied to scratch:
+
+```text
+/fs04/scratch2/qb48/chikayoh/xspecies_stage1order_white3_pipeline_20260621/angus_plotting_code_20260622/clusterChannels.m
+/fs04/scratch2/qb48/chikayoh/xspecies_stage1order_white3_pipeline_20260621/angus_plotting_code_20260622/plotMat_withMNI.m
+/fs04/scratch2/qb48/chikayoh/xspecies_stage1order_white3_pipeline_20260621/angus_plotting_code_20260622/MNIcolorbar_example.m
+```
+
+Before interpreting MNI colorbars, check:
+
+```text
+t-score MAT channel_ids
+MNI channelID_all
+YY/ZZ vector order
+row order after clustering
+```
+
+Do not interpret anterior-posterior gradients until channel ID alignment is confirmed.
+
+### Recommended execution order
+
+1. Validate Stage A v4 on 403.
+2. Run Stage B on 403 v4 output.
+3. Check MNI/channel alignment for 403.
+4. Apply Angus clustering/MNI plotting to 403.
+5. Expand Stage A to 372/409/423.
+6. Expand Stage B and Angus plotting to 372/409/423.
+7. Build 2018 subject inventory from `postprocess_HCTSA/human`.
+8. Stage and process 2018 subjects.
+9. Process 376 only after the source directory question is resolved.
+
+## Current validated status
+
+403 Stage A v4 regression completed successfully.
+
+Inputs:
+
+```text
+/fs04/scratch2/qb48/chikayoh/xspecies_tscore_10ch_20260619_162825/chikayo/prj_Daisuke/relabelled_hctsa_epoch200ms_20260412/403_2020_anesthesia
+```
+
+Output directory:
+
+```text
+/fs04/scratch2/qb48/chikayoh/xspecies_stage1order_white3_pipeline_20260621/regression_403_v4_20260623_sbatch_v3
+```
+
+Job:
+
+```text
+57438093
+```
+
+Key output:
+
+```text
+tscore_norm_403_2020_anesthesia_v4reg.mat
+tscore_norm_403_2020_anesthesia_v4reg_summary.csv
+tscore_norm_403_2020_anesthesia_v4reg_condition_audit.csv
+tscore_norm_403_2020_anesthesia_v4reg_README_tscore_source.txt
+```
+
+403 condition audit:
+
+```text
+n_channels = 174
+n_features = 7755
+n_awake = 300
+n_sedated = 300
+n_uncon = 300
+condition_parse_mode = state_token
+```
+
+403 comparison to existing references:
+
+```text
+t_AS_mat: max_abs_diff = 0
+t_SU_mat: max_abs_diff = 0
+channel_ids: max_abs_diff = 0
+mu_A_mat / mu_S_mat / mu_U_mat: max_abs_diff = 0
+var_A_mat / var_S_mat / var_U_mat: max_abs_diff = 0
+n_A_mat / n_S_mat / n_U_mat: max_abs_diff = 0
+```
+
+Conclusion:
+
+Stage A v4 calculation logic is validated on 403. Remaining checks before full interpretation are subject-specific input/source sanity checks and MNI/channel alignment for Angus plotting.

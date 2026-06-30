@@ -66,3 +66,11 @@ Dependency versions, source URLs, commit hashes, checksums, and install location
 ## Additional comparison document
 
 - Stage1 vs Stage2 comparison: [diff/STAGE1_VS_STAGE2.md](diff/STAGE1_VS_STAGE2.md)
+
+## Additional figure reproduction code
+
+- 6-s epoch Supplementary Figure 1 replot:
+  `ops/hctsa/epoch6s_suppfig1_replot/`
+
+This replot code uses analysis-level data stored outside this repository.
+

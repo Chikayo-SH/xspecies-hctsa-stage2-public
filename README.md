@@ -66,3 +66,11 @@ Dependency versions, source URLs, commit hashes, checksums, and install location
 ## Additional comparison document
 
 - Stage1 vs Stage2 comparison: [diff/STAGE1_VS_STAGE2.md](diff/STAGE1_VS_STAGE2.md)
+
+## Manuscript figure reproduction scripts
+
+- Manuscript figure scripts:
+  `ops/hctsa/manuscript_figure_scripts/`
+
+These scripts use analysis-level data stored outside this repository.
+

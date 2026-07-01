@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+title: "Code for xSpecies hctsa Stage 2 analyses"
+message: "If you use this code, please cite this repository."
+type: software
+authors:
+  - family-names: Hemmi
+    given-names: Chikayo
+repository-code: "https://github.com/Chikayo-SH/xspecies-hctsa-stage2-public"
+license: MIT

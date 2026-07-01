@@ -1,3 +1,23 @@
+%% script_supplementary_figure1
+% Reproduce the 6-s epoch Supplementary Figure 1-like output.
+%
+% Required data:
+%   data_supplementary_figure_1
+%
+% The data are not included in this repository. They are available separately
+% on Monash Bridges.
+%
+% Before running this script, set:
+%   export XSPECIES_EPOCH6S_SUPPFIG1_DATA_DIR="/path/to/data_supplementary_figure_1"
+%
+% This script uses copied analysis-level outputs and does not recompute HCTSA
+% features or rerun nearest-median classification from raw HCTSA outputs.
+
+clear;
+clc;
+
+replot_suppfig1_epoch6s_from_local_data();
+
 function out = replot_suppfig1_epoch6s_from_local_data(refCodeStrings)
 % Reproduce Supplementary Figure 1-like 6-s epoch analysis figure
 % from local copied data.
@@ -22,11 +42,11 @@ function out = replot_suppfig1_epoch6s_from_local_data(refCodeStrings)
     here = fileparts(mfilename("fullpath"));
     baseDir = fileparts(fileparts(fileparts(here)));
     dataDirEnv = getenv("XSPECIES_EPOCH6S_SUPPFIG1_DATA_DIR");
-if ~isempty(dataDirEnv)
-    dataDir = dataDirEnv;
-else
-    dataDir = fullfile(baseDir, "data", "epoch6s_suppfig1_minimal");
-end
+    if ~isempty(dataDirEnv)
+        dataDir = dataDirEnv;
+    else
+        dataDir = fullfile(baseDir, "data", "epoch6s_suppfig1_minimal");
+    end
 
     aggregateDir = fullfile(dataDir, "aggregate");
     pairDir = fullfile(dataDir, "pair_accuracy_mats");

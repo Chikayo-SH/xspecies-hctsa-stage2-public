@@ -67,10 +67,10 @@ Dependency versions, source URLs, commit hashes, checksums, and install location
 
 - Stage1 vs Stage2 comparison: [diff/STAGE1_VS_STAGE2.md](diff/STAGE1_VS_STAGE2.md)
 
-## Additional figure reproduction code
+## Manuscript figure reproduction scripts
 
-- 6-s epoch Supplementary Figure 1 replot:
-  `ops/hctsa/epoch6s_suppfig1_replot/`
+- Manuscript figure scripts:
+  `ops/hctsa/manuscript_figure_scripts/`
 
-This replot code uses analysis-level data stored outside this repository.
+These scripts use analysis-level data stored outside this repository.
 

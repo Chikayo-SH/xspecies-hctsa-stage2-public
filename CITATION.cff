@@ -5,5 +5,10 @@ type: software
 authors:
   - family-names: Hemmi
     given-names: Chikayo
+  - family-names: Shimaoka
+    given-names: Daisuke
+  - family-names: Leung
+    given-names: Angus
 repository-code: "https://github.com/Chikayo-SH/xspecies-hctsa-stage2-public"
 license: MIT
+doi: 10.5281/zenodo.21122634
